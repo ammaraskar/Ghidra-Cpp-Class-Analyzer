@@ -214,6 +214,9 @@ public class TypeInfoUtils {
 			if (reloc.getSymbolName().startsWith(VtableModel.MANGLED_PREFIX)) {
 				return reloc.getSymbolName().substring(VtableModel.MANGLED_PREFIX.length());
 			}
+			if (reloc.getSymbolName().startsWith("_" + VtableModel.MANGLED_PREFIX)) {
+				return reloc.getSymbolName().substring(("_" + VtableModel.MANGLED_PREFIX).length());
+			}
 			Address relocationAddress = getAbsoluteAddress(program, address);
 			if (relocationAddress == null || relocationAddress.getOffset() == 0) {
 				return "";

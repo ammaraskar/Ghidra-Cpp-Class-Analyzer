@@ -154,6 +154,9 @@ public final class GnuUtils {
 						if (name.equals(GnuVtable.PURE_VIRTUAL_FUNCTION_NAME)) {
 							return true;
 						}
+						if (name.equals("_" + GnuVtable.PURE_VIRTUAL_FUNCTION_NAME)) {
+							return true;
+						}
 						DemangledObject demangled = demangle(name);
 						if (demangled != null && demangled instanceof DemangledFunction) {
 							return true;
@@ -172,6 +175,10 @@ public final class GnuUtils {
 			if (pointee == null) {
 				return false;
 			}
+		}
+		Symbol symbol = program.getSymbolTable().getPrimarySymbol(pointee);
+		if (symbol != null && symbol.getName().equals("_" + GnuVtable.PURE_VIRTUAL_FUNCTION_NAME)) {
+			return true;
 		}
 		Listing listing = program.getListing();
 		if (listing.getFunctionAt(pointee) != null) {

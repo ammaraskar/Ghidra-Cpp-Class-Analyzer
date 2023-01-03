@@ -239,6 +239,9 @@ public class VtableUtils {
 	private static boolean isNotDefinedPointerData(Program program, Address address) {
 		Data data = program.getListing().getDataAt(address);
 		if (data != null && data.isDefined()) {
+			if (data.getDataType() instanceof Array) {
+				return ((Array) data.getDataType()).getDataType() instanceof PointerDataType;
+			}
 			return !data.isPointer();
 		}
 		return false;
